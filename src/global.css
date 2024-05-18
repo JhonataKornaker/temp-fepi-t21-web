@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  color-scheme: dark light;
+
+  width: 100%;
+  min-height: 100%;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 82.5%;
+  }
+}
