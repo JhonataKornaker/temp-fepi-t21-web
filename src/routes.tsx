@@ -10,6 +10,7 @@ import { Dashboard } from './pages/app/dashboard/dashboard'
 
 import { SignIn } from './pages/auth/sign-in'
 import { Forgot } from './pages/auth/forgot'
+import { Anamnse } from './pages/app/anamnse/anamnse'
 
 export const router = createBrowserRouter([
   {
@@ -18,7 +19,8 @@ export const router = createBrowserRouter([
 
     errorElement: <Error />,
 
-    children: [{ path: '/', element: <Dashboard /> }],
+    children: [{ path: '/', element: <Dashboard /> },
+              { path: 'athletes', element: <Anamnse /> }],
   },
 
   {
