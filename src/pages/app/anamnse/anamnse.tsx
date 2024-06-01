@@ -10,16 +10,14 @@ export function Anamnse () {
         <>
             <Helmet title="Anamnse"/>
 
-            <div className="flex flex-col gap-4">
                 <div className="space-y-2 mb-3">
                     <h1 className="text-3xl font-bold tracking-tight">Anamnse</h1>
                         <p className="text-base text-slate-400">
                             Visualize as informações da anamnse do atleta.
                         </p>
-                </div>
-            </div>  
+                </div> 
 
-                <Tabs.Root defaultValue="tab1" className="flex">
+                <Tabs.Root defaultValue="tab1" className="flex items-start">
                     <Tabs.List className="flex flex-col bg-slate-800 p-2 mr-6 w-80 rounded-md">
                         <Tabs.Trigger value="tab1" className="flex items-center p-3">
                             <div className="flex gap-4 items-center">

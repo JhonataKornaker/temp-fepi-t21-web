@@ -11,6 +11,11 @@ export default {
         sans: 'Inter, sans-serif',
         error: 'Plus Jakarta Sans, sans-serif',
       },
+
+      colors: {
+        customText: '#84CC16',
+        customBackground: '#273447'
+      }
     },
   },
   plugins: [],
