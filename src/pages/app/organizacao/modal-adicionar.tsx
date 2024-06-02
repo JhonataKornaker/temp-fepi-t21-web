@@ -1,10 +1,31 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { useState } from "react";
-import { useForm, } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
+import { z } from "zod";
 
-export function ModalAdicionar() {
+// Esquema de validação do zod
+const schema = z.object({
+  name: z.string(),
+  area: z.string(),
+});
 
+// Tipo de dados para Voluntaios
+type Voluntario = {
+  name: string;
+  area: string;
+};
+
+interface ModalAdicionarProps {
+  adicionarVoluntarios: (
+    voluntario: Omit<Voluntario, "id" | "dataInicio">
+  ) => void;
+  //id?: number;
+  //ComponetButton: React.ComponentType;
+}
+
+export function ModalAdicionar({ adicionarVoluntarios}: ModalAdicionarProps) {
   const [isOpen, setOpen] = useState(false);
 
   const {
@@ -12,10 +33,28 @@ export function ModalAdicionar() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: zodResolver(schema) });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data: FieldValues) => {
+    const dados: Voluntario = { name: data.name, area: data.area };
+    
+    //Requisição POST
+   /* try {
+      const response = await fetch('https: . . .', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ dados }),
+      });
+      const result = await response.json();
+      console.log('User created:', result);
+    } catch (error) {
+      console.error('Error creating user:', error);
+    }*/
+
+    adicionarVoluntarios(dados);
+
     reset();
     setOpen(false);
   };
@@ -23,7 +62,7 @@ export function ModalAdicionar() {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <button className="border-solid bg-customText text-black font-bold w-28 h-8 rounded-md text-sm">
+      <button className="border-solid bg-customText text-black font-bold w-28 h-8 rounded-md text-sm">
           Adicionar
         </button>
       </Dialog.Trigger>
@@ -32,7 +71,7 @@ export function ModalAdicionar() {
         <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] h-[398px] w-[584px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-customBackground shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
           <Dialog.Title className="flex justify-between items-center text-xl h-[80px] ps-8 pe-8">
             Adicionar Voluntário
-            <Dialog.Close>
+            <Dialog.Close asChild>
               <X className="size-6" />
             </Dialog.Close>
           </Dialog.Title>
@@ -46,8 +85,8 @@ export function ModalAdicionar() {
                 className="w-[536px] h-[48px] mt-2 mb-4 bg-slate-900 rounded-md pt-3 pb-3 ps-4"
                 type="text"
                 placeholder="Nome da organização"
-                id="nome"
-                {...register("nome", { required: true })}
+                id="name"
+                {...register("name", { required: true })}
               />
               <label htmlFor="Nome">Área</label>
               <input

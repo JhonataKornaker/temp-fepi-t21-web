@@ -1,29 +1,77 @@
 import { Handshake, Trash2 } from "lucide-react";
-import { ModalAdicionar } from "./modal-voluntarios";
+import { useEffect, useState } from "react";
+import { ModalEditar } from "./modal-editar";
+import { ModalAdicionar } from "./modal-adicionar";
 
 interface Voluntario {
   id: number;
-  nome: string;
+  name: string;
   dataInicio: string;
   area: string;
 }
 
-const dateVoluntarios: Voluntario[] = [
-  {
-    id: 1,
-    nome: "Jhonata Kornaker",
-    dataInicio: "31/05/24",
-    area: "Psycologia",
-  },
-  {
-    id: 2,
-    nome: "TesteNome2",
-    dataInicio: "10/05/24",
-    area: "Psycologia",
-  },
-];
-
 export function Voluntarios() {
+  const [voluntarios, setVoluntarios] = useState<Voluntario[]>([]);
+
+  /*//Requisição GET
+  useEffect(() => { 
+    const dataVoluntario = async () => {
+      try {
+        const response = await fetch('http:// . . .');
+        const result = await response.json();
+        setVoluntarios(result);
+      } catch {
+        console.error("Erro: ", error);
+      }
+    }
+    dataVoluntario();
+  },[]);*/
+
+  //Adicionar Voluntarios
+  const adicionarVoluntarios = (
+    // Omit - Criar mesmo tipo de objeto exceto id e dataInicio
+    novoVoluntario: Omit<Voluntario, "id" | "dataInicio">
+  ) => {
+    const dataAtual = new Date().toLocaleDateString();
+    //Verifica se voluntarios esta vazia (Logica para adicionar e incrementar id)
+    const id = voluntarios.length
+      ? voluntarios[voluntarios.length - 1].id + 1
+      : 1;
+    const voluntarioDate = { ...novoVoluntario, id, dataInicio: dataAtual };
+    setVoluntarios([...voluntarios, voluntarioDate]);
+  };
+
+  const removerItem = async (id: number) => {
+    //Logica para remover item
+    setVoluntarios(voluntarios.filter((voluntarios) => voluntarios.id !== id));
+
+    /*//Requisição DELETE:
+    try {
+    // Requisição DELETE:
+    const response = await fetch(`https://. . ./${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      // Se a requisição for bem-sucedida, atualizar a view:
+      setVoluntarios((voluntarios) => voluntarios.filter((voluntario) => voluntario.id !== id));
+      console.log('User deleted successfully');
+    } else {
+      console.error('Error deleting user:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error);
+  }*/
+  };
+
+  const editarVoluntario = (voluntarioEditado: Voluntario) => {
+    setVoluntarios(
+      voluntarios.map((voluntario) =>
+        voluntario.id === voluntarioEditado.id ? voluntarioEditado : voluntario
+      )
+    );
+  }
+
   return (
     <>
       <div className="flex items-center gap-3">
@@ -32,14 +80,19 @@ export function Voluntarios() {
       </div>
       <div className="flex justify-between mt-8 mb-4">
         <p className="text-base font-bold">Voluntários ativos</p>
-        <ModalAdicionar/>
+        <ModalAdicionar adicionarVoluntarios={adicionarVoluntarios} />
       </div>
-      {dateVoluntarios.length > 0 ? (
-        dateVoluntarios.map((voluntario) => (
+      {voluntarios.length > 0 ? (
+        voluntarios.map((voluntario) => (
           <div key={voluntario.id} className="mb-4 p-5 bg-slate-800 rounded-md">
             <div className="flex justify-between">
-              <p className="text-base">{voluntario.nome}</p>
-              <button>
+              <p className="text-base">{voluntario.name}</p>
+              <button
+                title="Botao Lixeira"
+                onClick={() => {
+                  removerItem(voluntario.id);
+                }}
+              >
                 <Trash2 className="text-red-600 size-4 font-bold" />
               </button>
             </div>
@@ -52,16 +105,14 @@ export function Voluntarios() {
                 <p className="text-xs mb-1">Aréa</p>
                 <p className="text-sm">{voluntario.area}</p>
               </div>
-              <button className="ml-auto w-16 h-6 bg-slate-800 rounded-md mr-5 self-center text-xs">
-                Editar
-              </button>
+              <ModalEditar id={voluntario.id} voluntarios={voluntarios} editarVoluntario={editarVoluntario} />
             </div>
           </div>
         ))
       ) : (
         <div className="flex justify-center mb-4 p-2 h-16 items-center bg-slate-800 rounded-md">
-          Sem voluntários cadastrados, clique no botão adicionar para cadastrar um novo
-          voluntário.
+          Sem voluntários cadastrados, clique no botão adicionar para cadastrar
+          um novo voluntário.
         </div>
       )}
     </>

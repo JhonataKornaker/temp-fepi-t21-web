@@ -1,9 +1,9 @@
 import * as Tabs  from "@radix-ui/react-tabs";
 import { ChevronRight, Handshake, LayoutDashboard, Settings } from "lucide-react";
 import { Helmet } from "react-helmet-async";
-import { VisaoGeralOrganization } from "./visao-geral-organization";
 import { Voluntarios } from "./voluntarios";
 import { DadosOrganizacao } from "./dados-organization";
+import { VisaoGeral } from "./visao-geral";
 
 export function Organizacao() {
   return (
@@ -48,7 +48,7 @@ export function Organizacao() {
                         </Tabs.Trigger>
                     </Tabs.List>
                     <div className="w-full flex flex-col">
-                    <Tabs.Content value="tab1"> <VisaoGeralOrganization /> </Tabs.Content>
+                    <Tabs.Content value="tab1"> <VisaoGeral /> </Tabs.Content>
                     <Tabs.Content value="tab2"> <Voluntarios /> </Tabs.Content>
                     <Tabs.Content value="tab3"> <DadosOrganizacao /> </Tabs.Content>
                     </div>
