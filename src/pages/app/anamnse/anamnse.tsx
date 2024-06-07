@@ -2,9 +2,16 @@ import { Helmet } from 'react-helmet-async'
 import * as Tabs from '@radix-ui/react-tabs'
 import { VisaoGeral } from './visao-geral'
 import { DadosAthetas } from './dados-atheta'
-import { Fingerprint, LayoutDashboard, User, Stethoscope } from 'lucide-react'
+import {
+  Fingerprint,
+  LayoutDashboard,
+  User,
+  Stethoscope,
+  BrainCircuit,
+} from 'lucide-react'
 import { DadosPessoais } from './dados-pessoais'
 import { AlergiasEliminacoesFisiologicas } from './alergias-eliminacoes-fisiologicas'
+import AspectosFuncionais from './aspectos-funcionais'
 
 export function Anamnse() {
   return (
@@ -44,6 +51,12 @@ export function Anamnse() {
               Sáude do atleta
             </div>
           </Tabs.Trigger>
+          <Tabs.Trigger value="tab5" className="flex items-center p-3">
+            <div className="flex gap-4 items-center">
+              <BrainCircuit className="h-4 w-4" />
+              Aspectos Funcionais
+            </div>
+          </Tabs.Trigger>
         </Tabs.List>
         <div className="bg-slate-800 w-full flex flex-col rounded-md p-5">
           <Tabs.Content value="tab1">
@@ -57,6 +70,9 @@ export function Anamnse() {
           </Tabs.Content>
           <Tabs.Content value="tab4">
             <AlergiasEliminacoesFisiologicas />
+          </Tabs.Content>
+          <Tabs.Content value="tab5">
+            <AspectosFuncionais />
           </Tabs.Content>
         </div>
       </Tabs.Root>

@@ -1,11 +1,9 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form'
 
 export function AlergiasEliminacoesFisiologicas() {
-  const { register, handleSubmit } = useForm();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (data: any) => console.log(data);
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = (data: unknown) => console.log(data)
   return (
     <section>
       <h1 className="text-2xl mb-8">Alergias e Eliminações fisiologicas</h1>
@@ -17,14 +15,14 @@ export function AlergiasEliminacoesFisiologicas() {
           <label className="mb-2">O Atleta posui algum tipo de alergia?</label>
           <div className="flex items-center gap-8 mb-3">
             <label className="flex items-center">
-              <input type="radio" value={"yes"} {...register("hasAllergy")} />
+              <input type="radio" value={'yes'} {...register('hasAllergy')} />
               <span className="ml-2">Sim</span>
             </label>
             <label className="flex items-center">
               <input
                 type="radio"
-                value={"no"}
-                {...register("hasAllergy")}
+                value={'no'}
+                {...register('hasAllergy')}
                 className="bg-customText"
               />
               <span className="ml-2">Não</span>
@@ -33,7 +31,7 @@ export function AlergiasEliminacoesFisiologicas() {
           <textarea
             id="allergyDetails"
             placeholder="Observação, caso necessário..."
-            {...register("allergyDetails")}
+            {...register('allergyDetails')}
             className="rounded-md h-24 bg-slate-900 p-1 leading-tight"
           />
         </section>
@@ -45,16 +43,16 @@ export function AlergiasEliminacoesFisiologicas() {
             <label className="flex items-center">
               <input
                 type="radio"
-                value={"yes"}
-                {...register("canBathroomAlone")}
+                value={'yes'}
+                {...register('canBathroomAlone')}
               />
               <span className="ml-2">Sim</span>
             </label>
             <label className="flex items-center">
               <input
                 type="radio"
-                value={"no"}
-                {...register("canBathroomAlone")}
+                value={'no'}
+                {...register('canBathroomAlone')}
                 className="bg-customText"
               />
               <span className="ml-2">Não</span>
@@ -63,7 +61,7 @@ export function AlergiasEliminacoesFisiologicas() {
           <textarea
             id="canBathroomAloneDetails"
             placeholder="Observação, caso necessário..."
-            {...register("canBathroomAloneDetails")}
+            {...register('canBathroomAloneDetails')}
             className="rounded-md h-24 bg-slate-900 p-1 leading-tight"
           />
         </section>
@@ -73,18 +71,14 @@ export function AlergiasEliminacoesFisiologicas() {
           </label>
           <div className="flex items-center gap-8 mb-3">
             <label className="flex items-center">
-              <input
-                type="radio"
-                value={"yes"}
-                {...register("incontinence")}
-              />
+              <input type="radio" value={'yes'} {...register('incontinence')} />
               <span className="ml-2">Sim</span>
             </label>
             <label className="flex items-center">
               <input
                 type="radio"
-                value={"no"}
-                {...register("incontinence")}
+                value={'no'}
+                {...register('incontinence')}
                 className="bg-customText"
               />
               <span className="ml-2">Não</span>
@@ -93,28 +87,22 @@ export function AlergiasEliminacoesFisiologicas() {
           <textarea
             id="IncontinenceDetails"
             placeholder="Observação, caso necessário..."
-            {...register("IncontinenceDetails")}
+            {...register('IncontinenceDetails')}
             className="rounded-md h-24 bg-slate-900 p-1 leading-tight"
           />
         </section>
         <section className="flex flex-col w-full">
-          <label className="mb-2">
-            O atleta faz uso de fraldas?
-          </label>
+          <label className="mb-2">O atleta faz uso de fraldas?</label>
           <div className="flex items-center gap-8 mb-3">
             <label className="flex items-center">
-              <input
-                type="radio"
-                value={"yes"}
-                {...register("useDiapers")}
-              />
+              <input type="radio" value={'yes'} {...register('useDiapers')} />
               <span className="ml-2">Sim</span>
             </label>
             <label className="flex items-center">
               <input
                 type="radio"
-                value={"no"}
-                {...register("useDiapers")}
+                value={'no'}
+                {...register('useDiapers')}
                 className="bg-customText"
               />
               <span className="ml-2">Não</span>
@@ -123,7 +111,7 @@ export function AlergiasEliminacoesFisiologicas() {
           <textarea
             id="useDiapersDetails"
             placeholder="Observação, caso necessário..."
-            {...register("useDiapersDetails")}
+            {...register('useDiapersDetails')}
             className="rounded-md h-24 bg-slate-900 p-1 leading-tight"
           />
         </section>
@@ -135,7 +123,7 @@ export function AlergiasEliminacoesFisiologicas() {
           <textarea
             id="athelteRoutineDetails"
             placeholder="Observação, caso necessário..."
-            {...register("athelteRoutineDetails")}
+            {...register('athelteRoutineDetails')}
             className="rounded-md h-24 bg-slate-900 p-1 leading-tight"
           />
         </section>
@@ -147,5 +135,5 @@ export function AlergiasEliminacoesFisiologicas() {
         </button>
       </form>
     </section>
-  );
+  )
 }
