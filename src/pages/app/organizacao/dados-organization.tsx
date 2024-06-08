@@ -31,7 +31,7 @@ export function DadosOrganizacao () {
         // Aqui você pode enviar os dados para onde precisar
         console.log('Dados:', { dadosGerais, endereco });
 
-        // aqui apaga os dados das tabelas ao salvar
+
         setDadosGerais({
             nome: '',
             dominio: '',
@@ -73,6 +73,17 @@ export function DadosOrganizacao () {
         }
         setEndereco({ ...endereco, cep: value });
     };
+
+    const handleUfChange = (event: { target: { value: any; }; }) => {
+        const { value } = event.target;
+        const newValue = value.toUpperCase().replace(/[^A-Z]/g, ''); // Converter para maiúsculas e remover caracteres não alfabéticos
+        setEndereco((prevEndereco) => ({
+            ...prevEndereco,
+            uf: newValue
+        }));
+    };
+
+    
 
     return (
     <>
@@ -151,7 +162,9 @@ export function DadosOrganizacao () {
                                 <select className="w-full h-9 pr-32 rounded-md text-white-800 bg-customBackground" 
                                 id="dono"
                                 value={dadosGerais.dono}
+                                required
                                 onChange={handleInputChange}>
+                                    <option value="" disabled>Selecione o Dono</option>
                                     <option value="brasil">Brasil</option>
                                     <option value="portugal">Portugal</option>
                                     <option value="eua">Estados Unidos</option>
@@ -175,7 +188,7 @@ export function DadosOrganizacao () {
                             <label className="block text-xs mb-2" htmlFor="cep">
                                 CEP
                             </label>
-                            <input type="text" maxLength="8" 
+                            <input type="text" maxLength={8} 
                             className="w-full h-9 p-3 rounded-md text-white-800 bg-customBackground" 
                             id="cep" placeholder="______-__" 
                             value={endereco.cep} 
@@ -260,11 +273,11 @@ export function DadosOrganizacao () {
                                 <label className="block text-xs mb-2" htmlFor="uf">
                                     UF
                                 </label>
-                                <input maxLength="2" className="h-9 w-20  p-3 rounded-md text-white-800 bg-customBackground" 
+                                <input maxLength={2} className="h-9 w-20  p-3 rounded-md text-white-800 bg-customBackground" 
                                 id="uf" placeholder="XX" 
                                 required
                                 value={endereco.uf}
-                                onChange={(e) => setEndereco({ ...endereco, uf: e.target.value })}/>
+                                onChange={handleUfChange}/>
                             </div> 
                         </fieldset>
                         
@@ -282,7 +295,7 @@ export function DadosOrganizacao () {
                 onClose={() => setIsModalVisible(false)}
                 onSave={handleSave}
                 dadosGerais={dadosGerais}
-                endereco={endereco} password={undefined}        />
+                endereco={endereco}  />
     </>
     );
 }
